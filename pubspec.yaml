@@ -1,0 +1,25 @@
+name: medalert
+description: "MedAlert — local health unit companion: scheduling, emergency SOS, directory, and advisories."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  supabase_flutter: ^2.5.6
+  flutter_dotenv: ^5.1.0
+  intl: ^0.19.0
+  url_launcher: ^6.2.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
