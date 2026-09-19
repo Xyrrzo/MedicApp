@@ -13,11 +13,12 @@ class SchedulePage extends StatefulWidget {
 
 class _SchedulePageState extends State<SchedulePage> {
   final _controller = AppointmentController();
+  final _nameCtrl = TextEditingController();
+  final _notesCtrl = TextEditingController();
   DateTime _selectedDate = DateTime.now().add(const Duration(days: 1));
   TimeOfDay _selectedTime = const TimeOfDay(hour: 9, minute: 0);
   String _selectedType = AppConstants.appointmentTypes.first;
   int? _selectedUnitId;
-  final _notesCtrl = TextEditingController();
 
   @override
   void initState() {
@@ -41,6 +42,12 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   Future<void> _book() async {
+    if (_nameCtrl.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter the patient name.')),
+      );
+      return;
+    }
     if (_selectedUnitId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please select a health unit.')),
@@ -48,6 +55,7 @@ class _SchedulePageState extends State<SchedulePage> {
       return;
     }
     final ok = await _controller.book(
+      patientName: _nameCtrl.text.trim(),
       healthUnitId: _selectedUnitId!,
       type: _selectedType,
       date: _selectedDate,
@@ -76,6 +84,15 @@ class _SchedulePageState extends State<SchedulePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
+                  TextField(
+                    controller: _nameCtrl,
+                    decoration: const InputDecoration(
+                      labelText: 'Patient name',
+                      prefixIcon: Icon(Icons.person_outline),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
                     initialValue: _selectedType,
                     decoration: const InputDecoration(labelText: 'Appointment type', border: OutlineInputBorder()),
@@ -133,7 +150,7 @@ class _SchedulePageState extends State<SchedulePage> {
             const SizedBox(height: 24),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text('My Appointments', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              child: Text('Appointments', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
             if (_controller.isLoading)
               const Padding(

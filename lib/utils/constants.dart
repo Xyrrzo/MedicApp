@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 class AppConstants {
   static const String appName = 'MedAlert';
 
-  // ---- Red gradient palette ----
+  
   static const Color redDark = Color(0xFF8B0000);
   static const Color redPrimary = Color(0xFFD7263D);
   static const Color redBright = Color(0xFFFF4D4D);
   static const Color redDeep = Color(0xFF6A040F);
 
-  static const Color primaryColor = redPrimary; // legacy reference
+  static const Color primaryColor = redPrimary; 
   static const Color dangerColor = redPrimary;
   static const Color warningColor = Color(0xFFF4A259);
 
-  /// The signature MedAlert red gradient used across the app.
+
   static const LinearGradient redGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,

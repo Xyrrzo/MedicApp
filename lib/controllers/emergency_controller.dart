@@ -8,7 +8,7 @@ class EmergencyController extends ChangeNotifier {
   bool isSubmitting = false;
   String? confirmationMessage;
 
-  /// Dials the given phone number using the device's dialer.
+ 
   Future<void> callEmergencyLine(String phone) async {
     final uri = Uri(scheme: 'tel', path: phone);
     if (await canLaunchUrl(uri)) {
@@ -16,7 +16,7 @@ class EmergencyController extends ChangeNotifier {
     }
   }
 
-  /// Submits the pre-screening symptom form before/while calling.
+
   Future<void> submitSymptoms(Map<String, bool> symptoms, String severity, String? notes) async {
     isSubmitting = true;
     confirmationMessage = null;

@@ -28,6 +28,7 @@ class AppointmentController extends ChangeNotifier {
   }
 
   Future<bool> book({
+    required String patientName,
     required int healthUnitId,
     required String type,
     required DateTime date,
@@ -38,6 +39,7 @@ class AppointmentController extends ChangeNotifier {
       final timeStr =
           '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
       await _service.bookAppointment(
+        patientName: patientName,
         healthUnitId: healthUnitId,
         type: type,
         date: date,

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'models/profile.dart';
 import 'pages/home_page.dart';
-import 'pages/login_page.dart';
+import 'services/notification_service.dart';
 import 'utils/constants.dart';
 
 Future<void> main() async {
@@ -15,6 +14,8 @@ Future<void> main() async {
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
+
+  await NotificationService.instance.init();
 
   runApp(const MedAlertApp());
 }
@@ -48,7 +49,7 @@ class MedAlertApp extends StatelessWidget {
           indicatorColor: AppConstants.redBright,
         ),
       ),
-      home: const AuthGate(),
+      home: const HomePage(),
     );
   }
 }
@@ -71,20 +72,4 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
-
-/// Routes the user to Login or Home depending on session state.
-class AuthGate extends StatelessWidget {
-  const AuthGate({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final session = Supabase.instance.client.auth.currentSession;
-    return session == null ? const LoginPage() : const HomePage();
-  }
-}
-
-/// Global holder for the signed-in user's role (set after login).
-class SessionContext {
-  static Profile? currentProfile;
 }

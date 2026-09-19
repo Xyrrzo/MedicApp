@@ -12,7 +12,7 @@ class EmergencyPage extends StatefulWidget {
 class _EmergencyPageState extends State<EmergencyPage> {
   final _controller = EmergencyController();
 
-  // Match these to your local emergency lines
+  
   static const String healthUnitHotline = '09171234567';
   static const String barangayEmergencyLine = '911';
 
